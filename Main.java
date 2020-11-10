@@ -85,36 +85,59 @@ class Node
 class BinarySearchTree
 {
     private Node root;
+    BinarySearchTree tree;
 
 
 
-    public void insert(int inValue)
+    public BinarySearchTree()
     {
-        root = insertRecursive(root, inValue);
+        root = null;
     }
 
 
 
-    private Node insertRecursive(Node root, int inValue)
+    public void insert(BinarySearchTree inTree, Node inNode)
     {
-        if (root == null)
+        if (inTree.root == null)
         {
-            root = new Node(inValue);
-
-            return root;
+            inTree.root = inNode;
         }
 
-        if (inValue < root.getValue())
+        else
         {
-            root.setLeft(insertRecursive(root.getLeft(), inValue));
-        }
+            Node currentNode = inTree.root;
 
-        else if (inValue > root.getValue())
-        {
-            root.setRight(insertRecursive(root.getRight(), inValue));
-        }
+            while (currentNode != null)
+            {
+                if (inNode.getValue() < currentNode.getValue())
+                {
+                    if (currentNode.getLeft() == null)
+                    {
+                        currentNode.setLeft(inNode);
+                        currentNode = null;
+                    }
 
-        return root;
+                    else
+                    {
+                        currentNode = currentNode.getLeft();
+                    }
+                }
+
+                else
+                {
+                    if (currentNode.getRight() == null)
+                    {
+                        currentNode.setRight(inNode);
+                        currentNode = null;
+                    }
+
+                    else
+                    {
+                        currentNode = currentNode.getRight();
+                    }
+                }
+            }
+        }
     }
 }
 
