@@ -82,6 +82,47 @@ class Node
 
 
 
+class BinarySearchTree
+{
+    private Node root;
+
+
+
+    public void insert(int inValue)
+    {
+        root = insertRecursive(root, inValue);
+    }
+
+
+
+    private Node insertRecursive(Node root, int inValue)
+    {
+        if (root == null)
+        {
+            root = new Node(inValue);
+
+            return root;
+        }
+
+        if (inValue < root.getValue())
+        {
+            root.setLeft(insertRecursive(root.getLeft(), inValue));
+        }
+
+        else if (inValue > root.getValue())
+        {
+            root.setRight(insertRecursive(root.getRight(), inValue));
+        }
+
+        return root;
+    }
+}
+
+
+
+
+
+
 public class Main
 {
     public static void main(String[] args)
