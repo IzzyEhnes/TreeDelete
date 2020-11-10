@@ -139,6 +139,38 @@ class BinarySearchTree
             }
         }
     }
+
+
+
+    public Node search(BinarySearchTree inTree, int target)
+    {
+        return searchRecursive(inTree.root, target);
+    }
+
+
+
+    public Node searchRecursive(Node inRoot, int target)
+    {
+        if (inRoot != null)
+        {
+            if (target == inRoot.getValue())
+            {
+                return inRoot;
+            }
+
+            else if (target < inRoot.getValue())
+            {
+                return searchRecursive(inRoot.getLeft(), target);
+            }
+
+            else
+            {
+                return searchRecursive(inRoot.getRight(), target);
+            }
+        }
+
+        return null;
+    }
 }
 
 
