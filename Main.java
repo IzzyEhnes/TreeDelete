@@ -96,16 +96,16 @@ class BinarySearchTree
 
 
 
-    public void insert(BinarySearchTree inTree, Node inNode)
+    public void insert(Node inNode)
     {
-        if (inTree.root == null)
+        if (this.root == null)
         {
-            inTree.root = inNode;
+            this.root = inNode;
         }
 
         else
         {
-            insertRecursive(inTree.root, inNode);
+            insertRecursive(this.root, inNode);
         }
     }
 
@@ -142,9 +142,9 @@ class BinarySearchTree
 
 
 
-    public Node search(BinarySearchTree inTree, int target)
+    public Node search(int target)
     {
-        return searchRecursive(inTree.root, target);
+        return searchRecursive(this.root, target);
     }
 
 
@@ -182,6 +182,14 @@ public class Main
 {
     public static void main(String[] args)
     {
-	// write your code here
+        BinarySearchTree tree = new BinarySearchTree();
+
+        tree.insert(new Node(50));
+        tree.insert(new Node(30));
+        tree.insert(new Node(70));
+        tree.insert(new Node(20));
+        tree.insert(new Node(40));
+        tree.insert(new Node(60));
+        tree.insert(new Node(10));
     }
 }
