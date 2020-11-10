@@ -105,37 +105,37 @@ class BinarySearchTree
 
         else
         {
-            Node currentNode = inTree.root;
+            insertRecursive(inTree.root, inNode);
+        }
+    }
 
-            while (currentNode != null)
+
+
+    public void insertRecursive(Node inRoot, Node inNode)
+    {
+        if (inNode.getValue() < inRoot.getValue())
+        {
+            if (inRoot.getLeft() == null)
             {
-                if (inNode.getValue() < currentNode.getValue())
-                {
-                    if (currentNode.getLeft() == null)
-                    {
-                        currentNode.setLeft(inNode);
-                        currentNode = null;
-                    }
+                inRoot.setLeft(inNode);
+            }
 
-                    else
-                    {
-                        currentNode = currentNode.getLeft();
-                    }
-                }
+            else
+            {
+                insertRecursive(inRoot.getLeft(), inNode);
+            }
+        }
 
-                else
-                {
-                    if (currentNode.getRight() == null)
-                    {
-                        currentNode.setRight(inNode);
-                        currentNode = null;
-                    }
+        else
+        {
+            if (inRoot.getRight() == null)
+            {
+                inRoot.setRight(inNode);
+            }
 
-                    else
-                    {
-                        currentNode = currentNode.getRight();
-                    }
-                }
+            else
+            {
+                insertRecursive(inRoot.getRight(), inNode);
             }
         }
     }
