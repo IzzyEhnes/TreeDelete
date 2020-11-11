@@ -96,16 +96,16 @@ class BinarySearchTree
 
 
 
-    public void insert(Node inNode)
+    public void insert(BinarySearchTree inTree, Node inNode)
     {
-        if (this.root == null)
+        if (inTree.root == null)
         {
-            this.root = inNode;
+            inTree.root = inNode;
         }
 
         else
         {
-            insertRecursive(this.root, inNode);
+            insertRecursive(inTree.root, inNode);
         }
     }
 
@@ -142,9 +142,9 @@ class BinarySearchTree
 
 
 
-    public Node search(int target)
+    public Node search(BinarySearchTree inTree, int target)
     {
-        return searchRecursive(this.root, target);
+        return searchRecursive(inTree.root, target);
     }
 
 
@@ -170,6 +170,35 @@ class BinarySearchTree
         }
 
         return null;
+    }
+
+
+
+    public Node getParent(BinarySearchTree inTree, Node inNode)
+    {
+        return getParentRecursive(inTree.root, inNode);
+    }
+
+
+
+    public Node getParentRecursive(Node subtreeRoot, Node inNode)
+    {
+        if (subtreeRoot == null)
+        {
+            return null;
+        }
+
+        if (subtreeRoot.getLeft() == inNode || subtreeRoot.getRight() == inNode)
+        {
+            return subtreeRoot;
+        }
+
+        if (inNode.getValue() < subtreeRoot.getValue())
+        {
+            return getParentRecursive(subtreeRoot.getLeft(), inNode);
+        }
+
+        return getParentRecursive(subtreeRoot.getRight(), inNode);
     }
 }
 
