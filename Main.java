@@ -200,6 +200,82 @@ class BinarySearchTree
 
         return getParentRecursive(subtreeRoot.getRight(), inNode);
     }
+
+
+
+    public void delete(BinarySearchTree inTree, int inValue)
+    {
+        Node newNode = search(inTree, inValue);
+        Node parent = getParent(inTree, newNode);
+        deleteNode(inTree, parent, newNode);
+    }
+
+
+
+    public boolean deleteNode(BinarySearchTree inTree, Node inParent, Node inNode)
+    {
+        if (inNode == null)
+        {
+            return false;
+        }
+
+        if (inNode.getLeft() != null && inNode.getRight() != null)
+        {
+            Node successor = inNode.getRight();
+            Node successorParent = inNode;
+
+            while (successor.getLeft() != null)
+            {
+                successorParent = successor;
+                successor = successor.getLeft();
+            }
+
+            inNode= new Node(successor.getValue());
+
+            deleteNode(inTree, successorParent, successor);
+        }
+
+        else if (inNode == inTree.root)
+        {
+            if (inNode.getLeft() != null)
+            {
+                inTree.root = inNode.getLeft();
+            }
+
+            else
+            {
+                inTree.root = inNode.getRight();
+            }
+        }
+
+        else if (inNode.getLeft() != null)
+        {
+            if (inParent.getLeft() == inNode.getLeft())
+            {
+                inParent.setLeft(inNode.getLeft());
+            }
+
+            else
+            {
+                inParent.setRight(inNode.getLeft());
+            }
+        }
+
+        else
+        {
+            if (inParent.getLeft() == inNode)
+            {
+                inParent.setLeft(inNode.getRight());
+            }
+
+            else
+            {
+                inParent.setRight(inNode.getRight());
+            }
+        }
+
+        return true;
+    }
 }
 
 
@@ -213,12 +289,12 @@ public class Main
     {
         BinarySearchTree tree = new BinarySearchTree();
 
-        tree.insert(new Node(50));
-        tree.insert(new Node(30));
-        tree.insert(new Node(70));
-        tree.insert(new Node(20));
-        tree.insert(new Node(40));
-        tree.insert(new Node(60));
-        tree.insert(new Node(10));
+        tree.insert(tree, new Node(50));
+        tree.insert(tree, new Node(30));
+        tree.insert(tree, new Node(70));
+        tree.insert(tree, new Node(20));
+        tree.insert(tree, new Node(40));
+        tree.insert(tree, new Node(60));
+        tree.insert(tree, new Node(10));
     }
 }
