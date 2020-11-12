@@ -86,6 +86,7 @@ class BinarySearchTree
 {
     private Node root;
     BinarySearchTree tree;
+    int nodeCount = 1;
 
 
 
@@ -103,6 +104,13 @@ class BinarySearchTree
 
 
 
+    public int getNodeCount()
+    {
+        return nodeCount;
+    }
+
+
+
     public void insert(BinarySearchTree inTree, Node inNode)
     {
         if (inTree.root == null)
@@ -113,6 +121,7 @@ class BinarySearchTree
         else
         {
             insertRecursive(inTree.root, inNode);
+            nodeCount++;
         }
     }
 
@@ -331,6 +340,32 @@ class BinarySearchTree
 
         System.out.print(inNode.getValue() + " ");
     }
+
+
+    
+    public int getHeight(Node inNode)
+    {
+        if (inNode == null)
+        {
+            return 0;
+        }
+
+        else
+        {
+            int leftHeight = getHeight(inNode.getLeft());
+            int rightHeight = getHeight(inNode.getRight());
+
+            if (leftHeight > rightHeight)
+            {
+                return (leftHeight + 1);
+            }
+
+            else
+            {
+                return (rightHeight + 1);
+            }
+        }
+    }
 }
 
 
@@ -353,6 +388,9 @@ public class Main
         tree.insert(tree, new Node(10));
         tree.insert(tree, new Node(80));
         tree.insert(tree, new Node(90));
+
+        System.out.println(tree.getNodeCount());
+        System.out.println(tree.getHeight(tree.getRoot()));
 
         tree.printPreorder(tree.getRoot());
         System.out.println();
