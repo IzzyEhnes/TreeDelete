@@ -286,7 +286,39 @@ class BinarySearchTree
 
 
 
-    void printPostorder(Node inNode)
+    public void printInorder(Node inNode)
+    {
+        if (inNode == null)
+        {
+            return;
+        }
+
+        printInorder(inNode.getLeft());
+
+        System.out.print(inNode.getValue() + " ");
+
+        printInorder(inNode.getRight());
+    }
+
+
+
+    public void printPreorder(Node inNode)
+    {
+        if (inNode == null)
+        {
+            return;
+        }
+
+        System.out.print(inNode.getValue() + " ");
+
+        printPreorder(inNode.getLeft());
+
+        printPreorder(inNode.getRight());
+    }
+
+
+
+    public void printPostorder(Node inNode)
     {
         if (inNode == null)
         {
@@ -322,6 +354,10 @@ public class Main
         tree.insert(tree, new Node(80));
         tree.insert(tree, new Node(90));
 
+        tree.printPreorder(tree.getRoot());
+        System.out.println();
         tree.printPostorder(tree.getRoot());
+        System.out.println();
+        tree.printInorder(tree.getRoot());
     }
 }
