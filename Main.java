@@ -96,6 +96,13 @@ class BinarySearchTree
 
 
 
+    public Node getRoot()
+    {
+        return root;
+    }
+
+
+
     public void insert(BinarySearchTree inTree, Node inNode)
     {
         if (inTree.root == null)
@@ -276,6 +283,22 @@ class BinarySearchTree
 
         return true;
     }
+
+
+
+    void printPostorder(Node inNode)
+    {
+        if (inNode == null)
+        {
+            return;
+        }
+
+        printPostorder(inNode.getLeft());
+
+        printPostorder(inNode.getRight());
+
+        System.out.print(inNode.getValue() + " ");
+    }
 }
 
 
@@ -296,5 +319,9 @@ public class Main
         tree.insert(tree, new Node(40));
         tree.insert(tree, new Node(60));
         tree.insert(tree, new Node(10));
+        tree.insert(tree, new Node(80));
+        tree.insert(tree, new Node(90));
+
+        tree.printPostorder(tree.getRoot());
     }
 }
