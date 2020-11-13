@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 class Node
 {
     private int value;
@@ -342,7 +346,40 @@ class BinarySearchTree
     }
 
 
-    
+
+    public void printLevelOrder()
+    {
+        int height = getHeight(root);
+
+        for (int level = 0; level < height; level++)
+        {
+            printLevelOrderRecursive(root, level);
+        }
+    }
+
+
+
+    public void printLevelOrderRecursive(Node inNode, int level)
+    {
+        if (inNode == null)
+        {
+            return;
+        }
+
+        if (level == 0)
+        {
+            System.out.print(inNode.getValue() + " ");
+        }
+
+        else
+        {
+            printLevelOrderRecursive(inNode.getLeft(), level - 1);
+            printLevelOrderRecursive(inNode.getRight(), level - 1);
+        }
+    }
+
+
+
     public int getHeight(Node inNode)
     {
         if (inNode == null)
@@ -373,8 +410,49 @@ class BinarySearchTree
 
 
 
-public class Main
+class Driver
 {
+    public static void readFile(String fileName)
+    {
+        BinarySearchTree tree = new BinarySearchTree();
+
+        Scanner fileReader = null;
+
+        try
+        {
+            fileReader = new Scanner(new File(fileName));
+        }
+
+        catch (FileNotFoundException fileError)
+        {
+            System.out.println(String.format
+                    ("There was a problem opening file \"%s\": \n\tError = %s", fileName, fileError.getMessage()));
+
+            System.out.println("Exiting program...");
+
+            System.exit(1);
+        }
+
+        while (fileReader.hasNextLine())
+        {
+            String currentString = fileReader.next().trim();
+
+            if (currentString.equals("Delete") || currentString.equals("delete"))
+            {
+                String deleteString = fileReader.next().trim();
+
+                tree.delete(tree, Integer.valueOf(deleteString));
+            }
+
+            else
+            {
+                tree.insert(tree, new Node(Integer.valueOf(currentString)));
+            }
+        }
+    }
+
+
+
     public static void main(String[] args)
     {
         BinarySearchTree tree = new BinarySearchTree();
@@ -396,6 +474,11 @@ public class Main
         System.out.println();
         tree.printPostorder(tree.getRoot());
         System.out.println();
+        tree.printInorder(tree.getRoot());
+        System.out.println();
+        tree.printLevelOrder();
+        System.out.println();
+        tree.delete(tree, 60);
         tree.printInorder(tree.getRoot());
     }
 }
