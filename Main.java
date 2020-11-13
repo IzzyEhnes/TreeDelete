@@ -308,7 +308,7 @@ class BinarySearchTree
 
         printInorder(inNode.getLeft());
 
-        System.out.print(inNode.getValue() + " ");
+        System.out.println(inNode.getValue() + " ");
 
         printInorder(inNode.getRight());
     }
@@ -322,7 +322,7 @@ class BinarySearchTree
             return;
         }
 
-        System.out.print(inNode.getValue() + " ");
+        System.out.println(inNode.getValue() + " ");
 
         printPreorder(inNode.getLeft());
 
@@ -342,7 +342,7 @@ class BinarySearchTree
 
         printPostorder(inNode.getRight());
 
-        System.out.print(inNode.getValue() + " ");
+        System.out.println(inNode.getValue() + " ");
     }
 
 
@@ -368,7 +368,7 @@ class BinarySearchTree
 
         if (level == 0)
         {
-            System.out.print(inNode.getValue() + " ");
+            System.out.println(inNode.getValue() + " ");
         }
 
         else
@@ -479,7 +479,6 @@ class Driver
         tree.insert(tree, new Node(80));
         tree.insert(tree, new Node(90));
 
-        /*
         System.out.println(tree.getNodeCount());
         System.out.println(tree.getHeight(tree.getRoot()));
 
@@ -493,8 +492,5 @@ class Driver
         System.out.println();
         tree.delete(tree, 60);
         tree.printInorder(tree.getRoot());
-         */
-
-        readFile("src/input.txt");
     }
 }
