@@ -441,7 +441,17 @@ class Driver
             {
                 String deleteString = fileReader.next().trim();
 
-                tree.delete(tree, Integer.valueOf(deleteString));
+                Node n = tree.search(tree, Integer.valueOf(deleteString));
+
+                if (n == null)
+                {
+                    tree.insert(tree, new Node(Integer.valueOf(deleteString)));
+                }
+
+                else
+                {
+                    tree.delete(tree, Integer.valueOf(deleteString));
+                }
             }
 
             else
@@ -449,6 +459,8 @@ class Driver
                 tree.insert(tree, new Node(Integer.valueOf(currentString)));
             }
         }
+
+        tree.printInorder(tree.getRoot());
     }
 
 
@@ -467,6 +479,7 @@ class Driver
         tree.insert(tree, new Node(80));
         tree.insert(tree, new Node(90));
 
+        /*
         System.out.println(tree.getNodeCount());
         System.out.println(tree.getHeight(tree.getRoot()));
 
@@ -480,5 +493,8 @@ class Driver
         System.out.println();
         tree.delete(tree, 60);
         tree.printInorder(tree.getRoot());
+         */
+
+        readFile("src/input.txt");
     }
 }
