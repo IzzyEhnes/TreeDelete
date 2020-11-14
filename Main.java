@@ -1,5 +1,7 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 class Node
@@ -92,6 +94,11 @@ class BinarySearchTree
     BinarySearchTree tree;
     int nodeCount = 1;
 
+    private String preorder = "";
+    private String inorder = "";
+    private String postorder = "";
+    private String levelOrder = "";
+
 
 
     public BinarySearchTree()
@@ -111,6 +118,34 @@ class BinarySearchTree
     public int getNodeCount()
     {
         return nodeCount;
+    }
+
+
+
+    public String getInorderString()
+    {
+        return inorder;
+    }
+
+
+
+    public String getPreorderString()
+    {
+        return preorder;
+    }
+
+
+
+    public String getPostorderString()
+    {
+        return postorder;
+    }
+
+
+
+    public String getLevelOrderString()
+    {
+        return levelOrder;
     }
 
 
@@ -299,67 +334,76 @@ class BinarySearchTree
 
 
 
-    public void printInorder(Node inNode)
+    public void getInorder(Node inNode)
     {
+        StringBuilder sb = new StringBuilder();
+
         if (inNode == null)
         {
             return;
         }
 
-        printInorder(inNode.getLeft());
+        getInorder(inNode.getLeft());
 
-        System.out.println(inNode.getValue() + " ");
+        sb.append(inorder).append(inNode.getValue() + "\n");
+        inorder = sb.toString();
 
-        printInorder(inNode.getRight());
+        getInorder(inNode.getRight());
     }
 
 
 
-    public void printPreorder(Node inNode)
+    public void getPreorder(Node inNode)
     {
+        StringBuilder sb = new StringBuilder();
+
         if (inNode == null)
         {
             return;
         }
 
-        System.out.println(inNode.getValue() + " ");
+        sb.append(preorder).append(inNode.getValue() + "\n");
+        preorder = sb.toString();
 
-        printPreorder(inNode.getLeft());
+        getPreorder(inNode.getLeft());
 
-        printPreorder(inNode.getRight());
+        getPreorder(inNode.getRight());
     }
 
 
 
-    public void printPostorder(Node inNode)
+    public void getPostorder(Node inNode)
     {
+        StringBuilder sb = new StringBuilder();
+
         if (inNode == null)
         {
             return;
         }
 
-        printPostorder(inNode.getLeft());
+        getPostorder(inNode.getLeft());
 
-        printPostorder(inNode.getRight());
+        getPostorder(inNode.getRight());
 
-        System.out.println(inNode.getValue() + " ");
+        sb.append(postorder).append(inNode.getValue() + "\n");
+        postorder = sb.toString();
     }
 
 
 
-    public void printLevelOrder()
+    public void getLevelOrder()
     {
         int height = getHeight(root);
 
         for (int level = 0; level < height; level++)
         {
-            printLevelOrderRecursive(root, level);
+            getLevelOrderRecursive(root, level);
         }
     }
 
 
 
-    public void printLevelOrderRecursive(Node inNode, int level)
+    public void getLevelOrderRecursive(Node inNode, int level)
     {
         if (inNode == null)
         {
@@ -368,13 +412,15 @@ class BinarySearchTree
 
         if (level == 0)
         {
-            System.out.println(inNode.getValue() + " ");
+            StringBuilder sb = new StringBuilder();
+            sb.append(levelOrder).append(inNode.getValue() + "\n");
+            levelOrder = sb.toString();
         }
 
         else
         {
-            printLevelOrderRecursive(inNode.getLeft(), level - 1);
-            printLevelOrderRecursive(inNode.getRight(), level - 1);
+            getLevelOrderRecursive(inNode.getLeft(), level - 1);
+            getLevelOrderRecursive(inNode.getRight(), level - 1);
         }
     }
 
@@ -412,7 +458,7 @@ class BinarySearchTree
 
 class Driver
 {
-    public static void readFile(String fileName)
+    public static BinarySearchTree readFile(String fileName)
     {
         BinarySearchTree tree = new BinarySearchTree();
 
@@ -460,7 +506,44 @@ class Driver
             }
         }
 
-        tree.printInorder(tree.getRoot());
+        return tree;
+    }
+
+
+
+    public static void writeFile(BinarySearchTree inTree)
+    {
+        try
+        {
+            File file = new File("src/output.txt");
+
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write("\nTree in preorder format:\n");
+            inTree.getPreorder(inTree.getRoot());
+            bw.write(inTree.getPreorderString());
+
+            bw.write("\nTree in inorder format:\n");
+            inTree.getInorder(inTree.getRoot());
+            bw.write(inTree.getInorderString());
+
+            bw.write("\nTree in postorder format:\n");
+            inTree.getPostorder(inTree.getRoot());
+            bw.write(inTree.getPostorderString());
+
+            bw.write("\nTree in breadth search format:\n");
+            inTree.getLevelOrder();
+            bw.write(inTree.getLevelOrderString());
+
+            bw.close();
+        }
+
+        catch (Exception ex)
+        {
+            System.out.print("\nError encountered when creating file: ");
+            System.out.println(ex.getMessage());
+        }
     }
 
 
@@ -469,28 +552,7 @@ class Driver
     {
         BinarySearchTree tree = new BinarySearchTree();
 
-        tree.insert(tree, new Node(50));
-        tree.insert(tree, new Node(30));
-        tree.insert(tree, new Node(70));
-        tree.insert(tree, new Node(20));
-        tree.insert(tree, new Node(40));
-        tree.insert(tree, new Node(60));
-        tree.insert(tree, new Node(10));
-        tree.insert(tree, new Node(80));
-        tree.insert(tree, new Node(90));
-
-        System.out.println(tree.getNodeCount());
-        System.out.println(tree.getHeight(tree.getRoot()));
-
-        tree.printPreorder(tree.getRoot());
-        System.out.println();
-        tree.printPostorder(tree.getRoot());
-        System.out.println();
-        tree.printInorder(tree.getRoot());
-        System.out.println();
-        tree.printLevelOrder();
-        System.out.println();
-        tree.delete(tree, 60);
-        tree.printInorder(tree.getRoot());
+        tree = readFile("src/input.txt");
+        writeFile(tree);
     }
 }
