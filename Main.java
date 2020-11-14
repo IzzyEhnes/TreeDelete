@@ -28,20 +28,6 @@ class Node
 
 
 
-    public void setLeftValue(int inValue)
-    {
-        left.value = inValue;
-    }
-
-
-
-    public int getLeftValue()
-    {
-        return left.value;
-    }
-
-
-
     public void setLeft(Node inNode)
     {
         left = inNode;
@@ -52,20 +38,6 @@ class Node
     public Node getLeft()
     {
         return left;
-    }
-
-
-
-    public void setRightValue(int inValue)
-    {
-        right.value = inValue;
-    }
-
-
-
-    public int getRightValue()
-    {
-        return right.value;
     }
 
 
@@ -91,7 +63,6 @@ class Node
 class BinarySearchTree
 {
     private Node root;
-    BinarySearchTree tree;
     int nodeCount = 1;
 
     private String preorder = "";
@@ -111,13 +82,6 @@ class BinarySearchTree
     public Node getRoot()
     {
         return root;
-    }
-
-
-
-    public int getNodeCount()
-    {
-        return nodeCount;
     }
 
 
@@ -511,11 +475,11 @@ class Driver
 
 
 
-    public static void writeFile(BinarySearchTree inTree)
+    public static void writeFile(BinarySearchTree inTree, String fileName)
     {
         try
         {
-            File file = new File("src/output.txt");
+            File file = new File(fileName);
 
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
@@ -553,6 +517,6 @@ class Driver
         BinarySearchTree tree = new BinarySearchTree();
 
         tree = readFile("src/input.txt");
-        writeFile(tree);
+        writeFile(tree, "src/output.txt");
     }
 }
